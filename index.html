@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let computerInput = ["rock", "paper", "scissors"];
+
+    let computerSelection;
+    let playerSelection;
+
+    function playRound() {
+      let round = 0;
+
+      playerSelection = prompt("what is your choice?").toLowerCase();
+      console.log(playerSelection);
+
+      computerSelection =
+        computerInput[Math.floor(Math.random() * computerInput.length)];
+      console.log(computerSelection);
+
+      if (playerSelection === computerSelection) {
+        return "It's a draw, try again";
+      } else if (
+        (playerSelection === "rock" && computerSelection === "paper") ||
+        (playerSelection === "paper" && computerSelection === "rock") ||
+        (playerSelection === "scissors" && computerSelection === "paper")
+      ) {
+        return "You win! " + playerSelection + " beats " + computerSelection;
+      } else {
+        return (
+          "You lose! " + playerSelection + " looses to " + computerSelection
+        );
+      }
+    }
+
+    function game() {
+      for (round = 0; round < 5; round++) {
+        console.log(playRound(), "round = " + round);
+      }
+    }
+
+    game();
+
+    // Next steps: make sure when you type in anything other than rock, paper, scissors it isn't recognised
+    // register win ++ each time a wine is detected
+  </script>
+</html>

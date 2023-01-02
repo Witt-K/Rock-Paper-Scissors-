@@ -4,49 +4,111 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Rock Paper Scissors!</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@200&family=Inconsolata:wght@300;400;600&family=Inter:wght@200&family=Rampart+One&display=swap");
+    </style>
   </head>
-  <body></body>
+  <body>
+    <div class="body">
+      <div class="header">
+        <h1>Rock, Paper, Scissors</h1>
+      </div>
+      <div class="content">
+        <div class="left">
+          <h3 id="playerSelectionTitle"></h3>
+          <h3 id="playerSelection"></h3>
+          <h3 id="playerScore"></h3>
+        </div>
+        <div class="button">
+          <button id="gameBtn">Let's Play!</button>
+        </div>
+        <div class="right">
+          <h3 id="computerSelectionTitle"></h3>
+          <h3 id="computerSelection"></h3>
+          <h3 id="computerScore"></h3>
+        </div>
+      </div>
+      <div class="footer">
+        <h3 id="round"></h3>
+        <h3 id="result"></h3>
+      </div>
+    </div>
+  </body>
   <script>
-    let computerInput = ["rock", "paper", "scissors"];
+    gameButton = document.getElementById("gameBtn");
+    gameButton.addEventListener("click", playRound);
+    // kicks off the game when the button is pushed by calling the playRound function
 
-    let computerSelection;
-    let playerSelection;
+    let playerScore = 0 
+    let computerScore = 0
+    let round = 0
+    // sets all scores at 0 and round at 0 for the beginnning of the game
+
+    let computerInput = ["rock", "paper", "scissors"];
+    // tells computerSelection what to pick from
 
     function playRound() {
-      let round = 0;
 
-      playerSelection = prompt("what is your choice?").toLowerCase();
-      console.log(playerSelection);
+      round ++;
+      // logs each round
+
+      playerSelection = prompt("rock, paper or scissors?").toLowerCase();
+      if (playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissors"){
+      document.getElementById("playerSelectionTitle").innerHTML =
+        "Your Selection:";
+      document.getElementById("playerSelection").innerHTML = playerSelection;
+      }
+      else {
+        alert("Soz, that's not a valid input. Try again");
+      }
+      // logs Player Selection
 
       computerSelection =
         computerInput[Math.floor(Math.random() * computerInput.length)];
-      console.log(computerSelection);
-
-      if (playerSelection === computerSelection) {
-        return "It's a draw, try again";
+      document.getElementById("computerSelectionTitle").innerHTML =
+        "Computer Selection:";
+      document.getElementById("computerSelection").innerHTML =
+        computerSelection;
+      // logs computerSelection (generated from computerInput)
+      
+        if (playerSelection === computerSelection) {
+        document.getElementById("result").innerHTML = "It's a draw, try again";
       } else if (
-        (playerSelection === "rock" && computerSelection === "paper") ||
+        (playerSelection === "rock" && computerSelection === "scissors") ||
         (playerSelection === "paper" && computerSelection === "rock") ||
         (playerSelection === "scissors" && computerSelection === "paper")
       ) {
-        return "You win! " + playerSelection + " beats " + computerSelection;
+        document.getElementById("result").innerHTML = "You win!";
+         playerScore ++;
       } else {
-        return (
-          "You lose! " + playerSelection + " looses to " + computerSelection
-        );
+        document.getElementById("result").innerHTML = "You lose!";
+        computerScore ++;
+      } 
+      // calculates winner or looser of the round and logs the score for that round
+
+      if (playerScore >= 3){
+        alert("Game's over! You win!")
       }
-    }
-
-    function game() {
-      for (round = 0; round < 5; round++) {
-        console.log(playRound(), "round = " + round);
+      else if (computerScore >= 3){
+        alert("Game's over! You lose!")
       }
-    }
+      // identifies who is the first player (player or computer) to get to 3 and therefore win the game
 
-    game();
+      document.getElementById("round").innerHTML = "Round " + round; 
+      document.getElementById("playerScore").innerHTML = playerScore;
+      document.getElementById("computerScore").innerHTML = computerScore;
+      //prints score to html
 
-    // Next steps: make sure when you type in anything other than rock, paper, scissors it isn't recognised
-    // register win ++ each time a wine is detected
+      }
+
+
+
   </script>
 </html>
+
+<!-- Room for improvement:
+  If player selection is not valid, none of HTML showing computer selection and score should populate.
+  Make the web page visually consistent across screen sizes (currently the botton will not always be a circle)
+
